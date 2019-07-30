@@ -29,9 +29,9 @@ Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 "markdown用自动排版表格
 Plug 'dhruvasagar/vim-table-mode'
-"
+"jsdoc文档生成
 Plug 'heavenshell/vim-jsdoc'
-"
+
 call plug#end()
 
 "配色设置"
