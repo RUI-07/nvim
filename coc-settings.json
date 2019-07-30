@@ -1,0 +1,14 @@
+{
+	"suggest.minTriggerInputLength": 1,
+    "languageserver": {
+    "cquery": {
+      "command": "/home/zhangrui/cquery_install/cquery/build/release/bin/cquery",
+      "args": ["--log-file=/tmp/cq.log"],
+      "filetypes": ["c", "cpp"],
+      "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "initializationOptions": {
+        "cacheDirectory": "/tmp/cquery"
+      }
+    }
+  }
+}
