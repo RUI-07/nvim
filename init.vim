@@ -31,6 +31,8 @@ Plug 'iamcco/markdown-preview.vim'
 Plug 'dhruvasagar/vim-table-mode'
 "jsdoc文档生成
 Plug 'heavenshell/vim-jsdoc'
+"翻译插件
+Plug 'echuraev/translate-shell.vim'
 
 call plug#end()
 
@@ -131,7 +133,23 @@ autocmd FileType markdown
 "za折叠
 nnoremap <space> za
 set foldmethod=indent
+set foldmethod=indent
 set foldlevel=99
+"H L 行首 行尾
+nnoremap H ^
+onoremap H ^
+nnoremap L $
+onoremap L $
+"缓冲区移动
+nnoremap <C-h> :bprevious<CR>
+nnoremap <C-l> :bnext<CR>
 "无限撤销
 set undofile
 set undodir=~/.vim/undodir
+"python支持
+let g:python3_host_prog = '/usr/bin/python3'
+let g:python_host_prog = '/usr/bin/python'
+
+"翻译插件按键映射
+nnoremap <silent> <leader>t :Trans<CR>
+vnoremap <silent> <leader>t :Trans<CR>
