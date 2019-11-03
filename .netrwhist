@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/zhangrui/work/futures/Extender'
+let g:netrw_dirhist_2='/home/zhangrui/work/futures'
+let g:netrw_dirhist_3='/home/zhangrui/work/futures/DataTable'
+let g:netrw_dirhist_4='/home/zhangrui/work/futures/Extender/general'
+let g:netrw_dirhist_5='/home/zhangrui/work/futures/Extender/finalIndex'
+let g:netrw_dirhist_6='/home/zhangrui/work/futures/Extender/general'
+let g:netrw_dirhist_7='/home/zhangrui/.config/nvim'

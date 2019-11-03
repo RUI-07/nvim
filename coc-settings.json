@@ -1,6 +1,7 @@
 {
-	"suggest.minTriggerInputLength": 1,
-    "languageserver": {
+  "suggest.minTriggerInputLength": 1,
+  "python.jediEnabled": false,
+  "languageserver": {
     "cquery": {
       "command": "/home/zhangrui/cquery_install/cquery/build/release/bin/cquery",
       "args": ["--log-file=/tmp/cq.log"],
@@ -9,6 +10,11 @@
       "initializationOptions": {
         "cacheDirectory": "/tmp/cquery"
       }
-    }
+    },
+    "phplang": {
+      "command": "php",
+      "args": ["/home/zhangrui/.config/composer/vendor/felixfbecker/language-server/bin/php-language-server.php"],
+      "filetypes": ["php"]
+    } 
   }
 }

@@ -33,6 +33,8 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'heavenshell/vim-jsdoc'
 "翻译插件
 Plug 'echuraev/translate-shell.vim'
+"快速移动
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
@@ -51,6 +53,8 @@ set undodir=~/.undodir
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+nmap <leader>di <Plug>(coc-diagnostic-info)
 nmap <leader>nd <Plug>(coc-diagnostic-next)
 nmap <leader>pd <Plug>(coc-diagnostic-prev)
 nmap <leader>df <Plug>(coc-definition)
@@ -72,24 +76,25 @@ set autoindent
 autocmd filetype c,cpp set cindent
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
-set softtabstop=4
+set softtabstop=2
 set shiftround
 set smarttab
 "vim文件类型识别"
 syntax on
 filetype on
 "coc开启同一变量高亮"
-"set updatetime=100
-"au CursorHold * sil call CocActionAsync('highlight')
-"au CursorHoldI * sil call CocActionAsync('showSignatureHelp')
+set updatetime=100
+au CursorHold * sil call CocActionAsync('highlight')
+au CursorHoldI * sil call CocActionAsync('showSignatureHelp')
 "错误提示样式设置"
 hi CocErrorHighlight ctermfg=White ctermbg=Red guifg=#000000 guibg=#ff0000 
 "关闭polyglot js高亮换用更好的插件"
 let g:polyglot_disabled = ['javascript', 'markdown']
 
+"系统插件解决输入法问题
 ""--------------退出插入模式自动关闭输入法-----------------
 "let g:input_toggle = 1
 "function! Fcitx2en()
@@ -136,10 +141,8 @@ set foldmethod=indent
 set foldmethod=indent
 set foldlevel=99
 "H L 行首 行尾
-nnoremap H ^
-onoremap H ^
-nnoremap L $
-onoremap L $
+noremap H ^
+noremap L $
 "缓冲区移动
 nnoremap <C-h> :bprevious<CR>
 nnoremap <C-l> :bnext<CR>
@@ -149,7 +152,20 @@ set undodir=~/.vim/undodir
 "python支持
 let g:python3_host_prog = '/usr/bin/python3'
 let g:python_host_prog = '/usr/bin/python'
-
 "翻译插件按键映射
-nnoremap <silent> <leader>t :Trans<CR>
-vnoremap <silent> <leader>t :Trans<CR>
+nnoremap <silent> <leader>tr :Trans<CR>
+vnoremap <silent> <leader>tr :Trans<CR>
+"目录查看映射
+cnoremap E Explore
+"关闭目录头
+let g:netrw_banner = 0
+"bc 关闭当前buffer
+command Bc :b # | bd #
+cnoremap bc Bc
+"快速移动映射
+map f <Plug>(easymotion-fl)
+map F <Plug>(easymotion-Fl)
+map s <Plug>(easymotion-prefix)
+map ss <Plug>(easymotion-overwin-f2)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
