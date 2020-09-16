@@ -1,20 +1,106 @@
 {
   "suggest.minTriggerInputLength": 1,
-  "python.jediEnabled": false,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "javascript.validate.enable": false,
+  "pyright.disableLanguageServices": true,
   "languageserver": {
     "cquery": {
       "command": "/home/zhangrui/cquery_install/cquery/build/release/bin/cquery",
-      "args": ["--log-file=/tmp/cq.log"],
-      "filetypes": ["c", "cpp"],
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "args": [
+        "--log-file=/tmp/cq.log"
+      ],
+      "filetypes": [
+        "c",
+        "cpp"
+      ],
+      "rootPatterns": [
+        "compile_flags.txt",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
       "initializationOptions": {
         "cacheDirectory": "/tmp/cquery"
       }
     },
     "phplang": {
       "command": "php",
-      "args": ["/home/zhangrui/.config/composer/vendor/felixfbecker/language-server/bin/php-language-server.php"],
-      "filetypes": ["php"]
-    } 
+      "args": [
+        "/home/zhangrui/.config/composer/vendor/felixfbecker/language-server/bin/php-language-server.php"
+      ],
+      "filetypes": [
+        "php"
+      ]
+    },
+    "python": {
+      "command": "python",
+      "args": [
+        "-mpyls",
+        "-vv",
+        "--log-file",
+        "/tmp/lsp_python.log"
+      ],
+      "trace.server": "verbose",
+      "filetypes": [
+        "python"
+      ],
+      "settings": {
+        "pyls": {
+          "enable": true,
+          "trace": {
+            "server": "verbose"
+          },
+          "commandPath": "",
+          "configurationSources": [
+            "pycodestyle"
+          ],
+          "plugins": {
+            "jedi_completion": {
+              "enabled": true
+            },
+            "jedi_hover": {
+              "enabled": true
+            },
+            "jedi_references": {
+              "enabled": true
+            },
+            "jedi_signature_help": {
+              "enabled": true
+            },
+            "jedi_symbols": {
+              "enabled": true,
+              "all_scopes": true
+            },
+            "mccabe": {
+              "enabled": true,
+              "threshold": 15
+            },
+            "preload": {
+              "enabled": true
+            },
+            "pycodestyle": {
+              "enabled": true
+            },
+            "pydocstyle": {
+              "enabled": false,
+              "match": "(?!test_).*\\.py",
+              "matchDir": "[^\\.].*"
+            },
+            "pyflakes": {
+              "enabled": false
+            },
+            "rope_completion": {
+              "enabled": true
+            },
+            "yapf": {
+              "enabled": true
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -7,15 +7,17 @@ Plug 'rafi/awesome-vim-colorschemes'
 "vim中文用户文档"
 Plug 'yianwillis/vimcdoc'
 "Coc补全框架"
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"支持js、ts缩进
+Plug 'jason0x43/vim-js-indent'
 "更好的js高亮"
 Plug 'othree/yajs.vim'
-"配合yajs实现js第三方库的高亮"
-Plug 'othree/javascript-libraries-syntax.vim'
-"配合yajs支持es6语法高亮"
+"配合yajs支持next es语法高亮"
 Plug 'othree/es.next.syntax.vim'
-"在底部显示函数参数"
-Plug 'Shougo/echodoc.vim'
+"更好的ts高亮"
+Plug 'HerringtonDarkholme/yats.vim'
+"支持 tsx jsx 高亮
+Plug 'maxmellon/vim-jsx-pretty'
 "更好的成对符号编辑"
 Plug 'tpope/vim-surround'
 "缩进线显示"
@@ -24,17 +26,12 @@ Plug 'Yggdroot/indentLine'
 Plug 'jiangmiao/auto-pairs'
 "更多的文本对象
 Plug 'wellle/targets.vim'
-"markdown 预览 支持数学公式"
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
 "markdown用自动排版表格
 Plug 'dhruvasagar/vim-table-mode'
 "jsdoc文档生成
 Plug 'heavenshell/vim-jsdoc'
-"翻译插件
-Plug 'echuraev/translate-shell.vim'
-"快速移动
-Plug 'easymotion/vim-easymotion'
+"vim-git 相关工具
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -47,8 +44,6 @@ set noshowmode
 "开启相对行号"
 set number
 set relativenumber
-"改变un文件位置"
-set undodir=~/.undodir
 "coc按键映射"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -69,10 +64,10 @@ nmap <leader>fc <Plug>(coc-fix-curren)
 "关闭左侧报错提示"
 set signcolumn=no
 "缩进相关设置"
-filetype indent on
-"filetype plugin indent on
-set smartindent
+"filetype indent on
+filetype plugin indent on
 set autoindent
+set smartindent
 autocmd filetype c,cpp set cindent
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
@@ -92,9 +87,10 @@ au CursorHoldI * sil call CocActionAsync('showSignatureHelp')
 "错误提示样式设置"
 hi CocErrorHighlight ctermfg=White ctermbg=Red guifg=#000000 guibg=#ff0000 
 "关闭polyglot js高亮换用更好的插件"
-let g:polyglot_disabled = ['javascript', 'markdown']
+"let g:polyglot_disabled = ['javascript', 'markdown']
 
 "系统插件解决输入法问题
+"可以用vim-fcitx解决
 ""--------------退出插入模式自动关闭输入法-----------------
 "let g:input_toggle = 1
 "function! Fcitx2en()
@@ -116,11 +112,8 @@ let g:polyglot_disabled = ['javascript', 'markdown']
 "set timeoutlen=300
 "autocmd InsertLeave * call Fcitx2en()
 ""去掉下行注释进入插入模式自动打开输入法
-""autocmd InsertEnter * call Fcitx2zh()
-""---------------------------------------------------------
+""autocmd InsertEnter * call Fcitx2zh() ""---------------------------------------------------------
 
-"开启函数参数显示"
-let g:echodoc#enable_at_startup = 1
 "缩进显示符的颜色设定"
 let g:indentLine_color_term = 237
 "开启首行缩进符显示"
@@ -135,7 +128,7 @@ autocmd FileType markdown
             \ let g:table_mode_header_fillchar = "-" |
             \ let g:table_mode_align_char = ":"
 
-"za折叠
+"空格za折叠
 nnoremap <space> za
 set foldmethod=indent
 set foldmethod=indent
@@ -149,23 +142,30 @@ nnoremap <C-l> :bnext<CR>
 "无限撤销
 set undofile
 set undodir=~/.vim/undodir
+"防止webpack监听失败
+set backupcopy=yes
 "python支持
-let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/usr/bin/python3.8'
 let g:python_host_prog = '/usr/bin/python'
+
 "翻译插件按键映射
-nnoremap <silent> <leader>tr :Trans<CR>
-vnoremap <silent> <leader>tr :Trans<CR>
+"nnoremap <silent> <leader>tr :Trans<CR>
+"vnoremap <silent> <leader>tr :Trans<CR>
+nmap <Leader>tr <Plug>(coc-translator-p)
+vmap <Leader>tr <Plug>(coc-translator-pv)
+
+"目录浏览器(netrw)设置
 "目录查看映射
-cnoremap E Explore
+command E Explore
 "关闭目录头
 let g:netrw_banner = 0
+
 "bc 关闭当前buffer
-command Bc :b # | bd #
-cnoremap bc Bc
-"快速移动映射
-map f <Plug>(easymotion-fl)
-map F <Plug>(easymotion-Fl)
-map s <Plug>(easymotion-prefix)
-map ss <Plug>(easymotion-overwin-f2)
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
+command BC :b # | bd #
+"允许不保存切换buffer
+set hidden
+"vb 垂直打开buffer
+command -nargs=* -complete=buffer Vb :vertical sb <args>
+command -nargs=* -complete=buffer Sb :sb <args>
+"diff 强制垂直分割
+set diffopt+=vertical
